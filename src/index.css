@@ -13,12 +13,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  background: #303030;
-  color: white;
-  max-width: 100vw;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

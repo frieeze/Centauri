@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
+import Categories from './General/Categories';
+import Carousel from './General/Carousel';
+import Conditions from './General/Conditions';
 
-export class General extends Component {
+class General extends Component {
   render() {
+    const { subpage } = this.props;
     return (
-      <div style={{ margin: '10em' }}>
-        <h1>Gerer les infos générales du site</h1>
+      <div>
+        {(function() {
+          switch (subpage) {
+            case 0:
+              return <Categories />;
+            case 1:
+              return <Carousel />;
+            case 2:
+              return <Conditions />;
+            default:
+              return <Categories />;
+          }
+        })()}
       </div>
     );
   }
