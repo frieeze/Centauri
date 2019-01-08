@@ -1,6 +1,10 @@
 export const GET_PROFILE = 'GET_PROFILE';
 
 export const GET_DATABASE = 'GET_DATABASE';
+export const GET_DB_ITEM = 'GET_DB_ITEM';
+export const MODIFY_DB_ITEM = 'MODIFY_DB_ITEM';
+export const ADD_DB_ITEM = 'ADD_DB_ITEM';
+export const DELETE_DB_ITEM = 'DELETE_DB_ITEM';
 
 export const GET_GEN = 'GET_GEN';
 
@@ -10,6 +14,7 @@ export const ADD_CAROUSEL = 'ADD_CAROUSEL';
 export const DELETE_CAROUSEL = 'DELETE_CAROUSEL';
 
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_CATEGORIES_NAMES = 'GET_CATEGORIES_NAMES';
 export const MODIFY_CATEGORY = 'MODIFY_CATEGORY';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';

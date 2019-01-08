@@ -2,7 +2,8 @@ import {
   MODIFY_CATEGORY,
   ADD_CATEGORY,
   DELETE_CATEGORY,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  GET_CATEGORIES_NAMES
 } from './types';
 
 export const getCategories = () => {
@@ -29,5 +30,11 @@ export const deleteCategory = id => {
   return {
     type: DELETE_CATEGORY,
     payload: id
+  };
+};
+
+export const getCategoriesNames = () => {
+  return {
+    type: GET_CATEGORIES_NAMES
   };
 };

@@ -87,12 +87,6 @@ class Categories extends Component {
 
     return (
       <div className={classes.root}>
-        <Remove
-          open={remove}
-          toggle={this.removeToggle}
-          confirm={this.removeCategory}
-          name={this.state.removeName}
-        />
         <Paper className={classes.paper}>
           <List component="nav" className={classes.list}>
             {tags.map(cat => (
@@ -121,6 +115,12 @@ class Categories extends Component {
           <AddIcon />
         </Button>
         <Create open={create} toggle={this.createToggle} />
+        <Remove
+          open={remove}
+          toggle={this.removeToggle}
+          confirm={this.removeCategory}
+          name={this.state.removeName}
+        />
       </div>
     );
   }

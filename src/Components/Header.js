@@ -33,7 +33,7 @@ class Header extends Component {
     },
     {
       page: 'Base de données',
-      sub: ['Jeux']
+      sub: ['Jeux', 'Ajouter']
     },
     {
       page: 'Analytics',

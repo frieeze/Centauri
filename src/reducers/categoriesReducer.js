@@ -2,7 +2,8 @@ import {
   ADD_CATEGORY,
   DELETE_CATEGORY,
   GET_CATEGORIES,
-  MODIFY_CATEGORY
+  MODIFY_CATEGORY,
+  GET_CATEGORIES_NAMES
 } from '../actions/types';
 import uuid from 'uuid';
 
@@ -58,7 +59,8 @@ const initialState = {
       name: 'Chapitaux',
       snap: 'https://source.unsplash.com/collection/369/500x300/'
     }
-  ]
+  ],
+  names: []
 };
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -86,6 +88,11 @@ export default function(state = initialState, action) {
             return cat;
           }
         })
+      };
+    case GET_CATEGORIES_NAMES:
+      return {
+        ...state,
+        names: state.tags.map(cat => cat.name)
       };
     default:
       return state;
