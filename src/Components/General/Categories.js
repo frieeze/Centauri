@@ -7,17 +7,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CreateIcon from '@material-ui/icons/Create';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import AddIcon from '@material-ui/icons/Add';
 
 import { connect } from 'react-redux';
-import {
-  getCategories,
-  deleteCategory,
-  modifyCategory
-} from '../../actions/categoriesActions';
-import Modify from './Categories/Modify';
+import { getCategories, deleteCategory } from '../../actions/categoriesActions';
 import { Button } from '@material-ui/core';
 import Create from './Categories/Create';
 import Remove from './Categories/Remove';
@@ -55,7 +49,7 @@ class Categories extends Component {
   onRemoveConfirm = cat => {
     this.setState({
       removeName: cat.name,
-      removeId: cat.id
+      removeId: cat._id
     });
     this.removeToggle();
   };
@@ -90,7 +84,7 @@ class Categories extends Component {
         <Paper className={classes.paper}>
           <List component="nav" className={classes.list}>
             {tags.map(cat => (
-              <ListItem key={cat.id}>
+              <ListItem key={cat._id}>
                 <ListItemText primary={cat.name} />
                 <ListItemSecondaryAction>
                   <IconButton
@@ -138,5 +132,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCategories, deleteCategory, modifyCategory }
+  { getCategories, deleteCategory }
 )(withStyles(styles)(Categories));

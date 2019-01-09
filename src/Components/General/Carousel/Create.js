@@ -6,13 +6,14 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  TextField,
   Button,
   DialogActions
 } from '@material-ui/core';
+import FileInput from '../../FileInput';
 
 import { connect } from 'react-redux';
 import { addCarousel } from '../../../actions/generalActions';
+import { getImage, resetImage } from '../../../actions/imageActions';
 
 const styles = theme => ({
   form: {
@@ -30,40 +31,37 @@ const styles = theme => ({
 });
 
 export class Create extends Component {
-  state = {
-    snap: ''
-  };
-  onChangeSnap = e => {
-    this.setState({ snap: e.target.value });
+  onCancel = () => {
+    this.props.resetImage();
+    this.props.toggle();
   };
 
   onSubmit = () => {
-    this.props.addCarousel(this.state.snap);
+    this.props.addCarousel(this.props.image);
 
-    this.props.toggle();
-    this.setState({ snap: '' });
+    this.onCancel();
   };
 
   render() {
-    const { classes, open, toggle } = this.props;
-    const { snap } = this.state;
+    const { classes, open, image } = this.props;
     return (
-      <Dialog open={open} onClose={toggle} aria-labelledby="create-title">
+      <Dialog
+        open={open}
+        onClose={this.onCancel}
+        aria-labelledby="create-title"
+      >
         <DialogTitle id="create-title">Ajouter une image</DialogTitle>
         <DialogContent className={classes.form}>
-          <TextField
-            id="snap"
-            label="Image"
-            className={classes.formItems}
-            value={snap}
-            onChange={this.onChangeSnap}
-          />
+          <FileInput />
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggle} color="secondary">
+          <Button onClick={this.onCancel} color="secondary">
             Annuler
           </Button>
-          <Button onClick={this.onSubmit} color="primary">
+          <Button
+            onClick={image ? this.onSubmit : this.onCancel}
+            color="primary"
+          >
             Creer
           </Button>
         </DialogActions>
@@ -73,12 +71,15 @@ export class Create extends Component {
 }
 
 Create.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  getImage: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  image: state.image.img
+});
 
 export default connect(
   mapStateToProps,
-  { addCarousel }
+  { addCarousel, getImage, resetImage }
 )(withStyles(styles)(Create));

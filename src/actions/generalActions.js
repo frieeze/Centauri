@@ -1,28 +1,85 @@
-import { GET_GEN, SAVE_DELPIC, ADD_CAROUSEL, DELETE_CAROUSEL } from './types';
+import {
+  GET_GEN,
+  SAVE_DELPIC,
+  ADD_CAROUSEL,
+  DELETE_CAROUSEL,
+  LOG_OUT
+} from './types';
+import axios from 'axios';
 
-export const getGeneral = () => {
-  return {
-    type: GET_GEN
-  };
+export const getGeneral = () => dispatch => {
+  axios
+    .get('api/oskur/general', {
+      headers: {
+        Authorization: sessionStorage.getItem('auth_token')
+      }
+    })
+    .then(res => {
+      console.log(res);
+      res.data.logged
+        ? dispatch({
+            type: GET_GEN,
+            payload: res.data.msg
+          })
+        : dispatch({ type: LOG_OUT });
+    });
 };
 
-export const deleteCarousel = image => {
-  return {
-    type: DELETE_CAROUSEL,
-    payload: image
-  };
+export const deleteCarousel = image => dispatch => {
+  axios
+    .delete(`api/oskur/carousel/${image}`, {
+      headers: {
+        Authorization: sessionStorage.getItem('auth_token')
+      }
+    })
+    .then(res => {
+      res.data.logged
+        ? dispatch({
+            type: DELETE_CAROUSEL,
+            payload: res.data.data
+          })
+        : dispatch({ type: LOG_OUT });
+    });
 };
 
-export const addCarousel = image => {
-  return {
-    type: ADD_CAROUSEL,
-    payload: image
-  };
+export const addCarousel = image => dispatch => {
+  axios
+    .post(
+      'api/oskur/carousel',
+      { image: image },
+      {
+        headers: {
+          Authorization: sessionStorage.getItem('auth_token')
+        }
+      }
+    )
+    .then(res => {
+      res.data.logged
+        ? dispatch({
+            type: ADD_CAROUSEL,
+            payload: res.data.data
+          })
+        : dispatch({ type: LOG_OUT });
+    });
 };
 
-export const saveDelpic = delpic => {
-  return {
-    type: SAVE_DELPIC,
-    payload: delpic
-  };
+export const saveDelpic = delpic => dispatch => {
+  axios
+    .post(
+      'api/oskur/delpic',
+      { pickdelinfo: delpic },
+      {
+        headers: {
+          Authorization: sessionStorage.getItem('auth_token')
+        }
+      }
+    )
+    .then(res => {
+      res.data.logged
+        ? dispatch({
+            type: SAVE_DELPIC,
+            payload: res.data.data
+          })
+        : dispatch({ type: LOG_OUT });
+    });
 };

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,14 +6,17 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   TextField,
   Button,
-  DialogActions
+  DialogActions,
+  Snackbar,
+  SnackbarContent
 } from '@material-ui/core';
+import FileInput from '../../FileInput';
 
 import { connect } from 'react-redux';
 import { addCategory } from '../../../actions/categoriesActions';
+import { getImage, resetImage } from '../../../actions/imageActions';
 
 const styles = theme => ({
   form: {
@@ -28,39 +30,55 @@ const styles = theme => ({
   },
   file: {
     display: 'none'
+  },
+  input: {
+    display: 'none'
+  },
+  snackbar: {
+    backgroundColor: '#d32f2f'
   }
 });
 
 export class Create extends Component {
   state = {
-    name: '',
-    snap: ''
+    name: undefined,
+    snackbar: false
   };
 
   onChangeName = e => {
     this.setState({ name: e.target.value });
   };
-  onChangeSnap = e => {
-    this.setState({ snap: e.target.value });
-  };
+  handleClose = () => this.setState({ snackbar: false });
 
   onSubmit = () => {
-    const newCat = {
-      id: uuid(),
-      name: this.state.name,
-      snap: this.state.snap
-    };
-    this.props.addCategory(newCat);
-
+    const { name } = this.state;
+    const { snap } = this.props;
+    if (name === '' || snap === '') {
+      this.setState({ snackbar: true });
+    } else {
+      const newCat = {
+        name: name,
+        snap: snap
+      };
+      this.props.addCategory(newCat);
+    }
+    this.handleCancel();
+  };
+  handleCancel = () => {
     this.props.toggle();
-    this.setState({ snap: '' });
+    this.setState({ name: undefined });
+    this.props.resetImage();
   };
 
   render() {
-    const { classes, open, toggle } = this.props;
-    const { name, snap } = this.state;
+    const { classes, open } = this.props;
+    const { name, snackbar } = this.state;
     return (
-      <Dialog open={open} onClose={toggle} aria-labelledby="create-title">
+      <Dialog
+        open={open}
+        onClose={this.handleCancel}
+        aria-labelledby="create-title"
+      >
         <DialogTitle id="create-title">Ajouter un catégorie</DialogTitle>
         <DialogContent className={classes.form}>
           <TextField
@@ -71,22 +89,33 @@ export class Create extends Component {
             value={name}
             onChange={this.onChangeName}
           />
-          <TextField
-            id="snap"
-            label="Image"
-            className={classes.formItems}
-            value={snap}
-            onChange={this.onChangeSnap}
-          />
+          <FileInput />
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggle} color="secondary">
+          <Button onClick={this.handleCancel} color="secondary">
             Annuler
           </Button>
           <Button onClick={this.onSubmit} color="primary">
             Creer
           </Button>
         </DialogActions>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          open={snackbar}
+          onClose={this.handleClose}
+          autoHideDuration={6000}
+        >
+          <SnackbarContent
+            message={
+              <span id="client-snackbar">Nom ou image non renseigné</span>
+            }
+            aria-describedby="client-snackbar"
+            className={classes.snackbar}
+          />
+        </Snackbar>
       </Dialog>
     );
   }
@@ -97,10 +126,10 @@ Create.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  categories: state.categories
+  snap: state.image.img
 });
 
 export default connect(
   mapStateToProps,
-  { addCategory }
+  { addCategory, getImage, resetImage }
 )(withStyles(styles)(Create));

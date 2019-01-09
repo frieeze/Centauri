@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 
 import { connect } from 'react-redux';
 import {
@@ -16,7 +17,6 @@ import {
   deleteCarousel,
   saveDelpic
 } from '../../actions/generalActions';
-import { Button, CardMedia } from '@material-ui/core';
 
 import Create from './Carousel/Create';
 import Remove from './Carousel/Remove';

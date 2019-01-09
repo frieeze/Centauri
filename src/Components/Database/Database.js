@@ -79,7 +79,7 @@ class Database extends Component {
         {subpage === 0 ? (
           <GridList cellHeight={200} className={classes.gridList} cols={3}>
             {database.map(item => (
-              <GridListTile key={item.id}>
+              <GridListTile key={item._id}>
                 <img src={item.snap} alt={item.title} />
                 <GridListTileBar
                   title={item.name}
@@ -87,13 +87,13 @@ class Database extends Component {
                     <div>
                       <IconButton
                         className={classes.icon}
-                        onClick={this.onModifyClick.bind(this, item.id)}
+                        onClick={this.onModifyClick.bind(this, item._id)}
                       >
                         <Create />
                       </IconButton>
                       <IconButton
                         className={classes.icon}
-                        onClick={this.onRemoveClick.bind(this, item.id)}
+                        onClick={this.onRemoveClick.bind(this, item._id)}
                       >
                         <DeleteIcon />
                       </IconButton>

@@ -1,4 +1,6 @@
 export const GET_PROFILE = 'GET_PROFILE';
+export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';
 
 export const GET_DATABASE = 'GET_DATABASE';
 export const GET_DB_ITEM = 'GET_DB_ITEM';
@@ -15,6 +17,10 @@ export const DELETE_CAROUSEL = 'DELETE_CAROUSEL';
 
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CATEGORIES_NAMES = 'GET_CATEGORIES_NAMES';
-export const MODIFY_CATEGORY = 'MODIFY_CATEGORY';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+
+export const IMAGE_UPLOADED = 'IMAGE_UPLOADED';
+export const UPLOADING = 'UPLOADING';
+export const RESET_IMAGE = 'RESET_IMAGE';
+export const GET_IMAGE = 'GET_IMAGE';

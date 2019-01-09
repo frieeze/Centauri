@@ -107,9 +107,8 @@ export class Modify extends Component {
 
   onSubmit = () => {
     const newItem = {
-      id: this.props.data.id,
+      _id: this.props.data._id,
       pic: this.state.pic ? this.state.pic : this.props.data.pic,
-      tags: ['Jeux de sumo'],
       name: this.state.name ? this.state.name : this.props.data.name,
       desc: {
         dimension: this.state.dimension
@@ -138,7 +137,6 @@ export class Modify extends Component {
     this.setState({
       modifySnap: false,
       pic: undefined,
-      tags: undefined,
       name: undefined,
       dimension: undefined,
       time: undefined,
@@ -160,7 +158,7 @@ export class Modify extends Component {
   }
 
   render() {
-    const { open, classes, data, toggle } = this.props;
+    const { open, classes, data } = this.props;
     const { modifySnap } = this.state;
     return (
       <Dialog

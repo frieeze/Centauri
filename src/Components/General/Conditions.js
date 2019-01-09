@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { TextField, Typography, IconButton, Divider } from '@material-ui/core';
+import { Typography, IconButton, Divider } from '@material-ui/core';
 import Create from '@material-ui/icons/Create';
 
 import { connect } from 'react-redux';

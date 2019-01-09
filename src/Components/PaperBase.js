@@ -155,8 +155,8 @@ class Paperbase extends Component {
   state = {
     mobileOpen: false,
     current: {
-      page: 'Base de données',
-      subpage: 1
+      page: 'Général',
+      subpage: 0
     }
   };
 

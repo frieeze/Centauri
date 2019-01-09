@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 import { connect } from 'react-redux';
-import { getItem, deleteItem } from '../../actions/databaseActions';
+import { deleteItem } from '../../actions/databaseActions';
 
 const styles = theme => ({
   form: {
@@ -31,29 +31,21 @@ const styles = theme => ({
 
 export class Remove extends Component {
   onSubmit = () => {
-    this.props.deleteItem(this.props.data.id);
+    this.props.deleteItem(this.props.id);
     this.props.toggle();
   };
 
-  componentDidUpdate() {
-    this.props.getItem(this.props.id);
-  }
-
   render() {
-    const { classes, open, toggle, data } = this.props;
+    const { classes, open, toggle } = this.props;
     return (
       <Dialog open={open} onClose={toggle} aria-labelledby="remove-title">
         <DialogTitle id="remove-title">Suppression d'un article'</DialogTitle>
-        {data ? (
-          <DialogContent className={classes.form}>
-            <DialogContentText>
-              Etes vous sûr de vouloir supprimer l'article {data.name} cette
-              action est irréversible ?
-            </DialogContentText>
-          </DialogContent>
-        ) : (
-          <h3>Une erreur est survenue merci de réessayer plus tard</h3>
-        )}
+        <DialogContent className={classes.form}>
+          <DialogContentText>
+            Etes vous sûr de vouloir supprimer l'article cette action est
+            irréversible ?
+          </DialogContentText>
+        </DialogContent>
         <DialogActions>
           <Button onClick={toggle} color="primary">
             Annuler
@@ -71,11 +63,9 @@ Remove.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  data: state.database.selected
-});
+const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,
-  { getItem, deleteItem }
+  { deleteItem }
 )(withStyles(styles)(Remove));

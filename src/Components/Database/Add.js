@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Dialog,
-  DialogTitle,
   DialogContent,
   TextField,
   DialogActions,
@@ -27,12 +25,12 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import Create from '@material-ui/icons/Create';
+import FileInput from '../FileInput';
 
 import { connect } from 'react-redux';
 import { addItem } from '../../actions/databaseActions';
 import { getCategoriesNames } from '../../actions/categoriesActions';
-
-import uuid from 'uuid';
+import { getImage, resetImage } from '../../actions/imageActions';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -73,10 +71,8 @@ const styles = theme => ({
 });
 export class Add extends Component {
   state = {
-    modifySnap: false,
     newPic: '',
     pic: [],
-    tags: '',
     name: '',
     dimension: '',
     time: '',
@@ -86,10 +82,6 @@ export class Add extends Component {
     price: '',
     snap: '',
     tags: []
-  };
-
-  modifySnap = () => {
-    this.setState({ modifySnap: true });
   };
 
   handlePicDelete = pic => {
@@ -117,9 +109,7 @@ export class Add extends Component {
 
   onSubmit = () => {
     const newItem = {
-      id: uuid(),
       pic: this.state.pic,
-      tags: this.state.tags,
       name: this.state.name,
       desc: {
         dimension: this.state.dimension,
@@ -142,7 +132,6 @@ export class Add extends Component {
     this.setState({
       modifySnap: false,
       pic: [],
-      tags: '',
       name: '',
       dimension: '',
       time: '',
@@ -272,22 +261,7 @@ export class Add extends Component {
                     alt="Aperçu de l'article"
                   />
                   <ListItemSecondaryAction>
-                    {modifySnap ? (
-                      <TextField
-                        label="URL"
-                        id="snap"
-                        name="snap"
-                        onChange={this.handleChange}
-                      />
-                    ) : (
-                      <IconButton
-                        variant="contained"
-                        color="primary"
-                        onClick={this.modifySnap}
-                      >
-                        <Create />
-                      </IconButton>
-                    )}
+                    <FileInput title="Modifier" />
                   </ListItemSecondaryAction>
                 </ListItem>
                 {this.state.pic.map(img => (
@@ -356,10 +330,11 @@ Add.propTypes = {
 
 const mapStateToProps = state => ({
   data: state.database.selected,
-  categories: state.categories.names
+  categories: state.categories.names,
+  image: state.image.img
 });
 
 export default connect(
   mapStateToProps,
-  { addItem, getCategoriesNames }
+  { addItem, getCategoriesNames, getImage, resetImage }
 )(withStyles(styles)(Add));

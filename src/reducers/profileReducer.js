@@ -1,10 +1,7 @@
-import { GET_PROFILE } from '../actions/types';
+import { GET_PROFILE, LOG_IN, LOG_OUT } from '../actions/types';
 
 const initialState = {
-  isLogged: true,
-  profile: {
-    username: 'frieeze'
-  }
+  isLogged: false
 };
 
 export default function(state = initialState, action) {
@@ -12,6 +9,16 @@ export default function(state = initialState, action) {
     case GET_PROFILE:
       return {
         ...state
+      };
+    case LOG_IN:
+      return {
+        ...state,
+        isLogged: action.payload
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        isLogged: false
       };
     default:
       return state;

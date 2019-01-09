@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+
+import { logOut } from '../actions/profileActions';
+import { connect } from 'react-redux';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -65,9 +67,13 @@ class Header extends Component {
             <Grid container alignItems="center" spacing={8}>
               <Grid item xs>
                 <Typography color="inherit" variant="h5">
-                  Données générales
+                  {current.page}
                 </Typography>
               </Grid>
+              <Button color="inherit" onClick={this.props.logOut}>
+                {' '}
+                Déconnexion
+              </Button>
             </Grid>
           </Toolbar>
         </AppBar>
@@ -95,8 +101,12 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = state => ({});
 Header.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Header);
+export default connect(
+  mapStateToProps,
+  { logOut }
+)(withStyles(styles)(Header));
