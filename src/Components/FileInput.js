@@ -46,23 +46,18 @@ export class FileInput extends Component {
   onSubmit = e => {
     const data = new FormData();
     data.append('PassionLoisir', this.state.img);
-    this.props.uploadImage(data);
+    this.props.uploadImage(data, this.props.name);
     this.onCancel();
   };
 
   onCancel = () => {
     this.setState({
-      img: undefined,
       preview: false
     });
   };
 
-  componentWillUpdate() {
-    this.props.getImage();
-  }
-
   render() {
-    const { classes, image, uploading, title } = this.props;
+    const { classes, uploading, title, id } = this.props;
     const { preview, img } = this.state;
 
     return (
@@ -91,23 +86,19 @@ export class FileInput extends Component {
               <Clear />
             </IconButton>
           </div>
-        ) : uploading || image ? (
-          uploading ? (
-            <CircularProgress />
-          ) : (
-            <img src={image} alt="Aperçu" className={classes.image} />
-          )
+        ) : uploading ? (
+          <CircularProgress />
         ) : (
           <div>
             <input
               accept="image/*"
               className={classes.input}
-              id="flat-button-file"
+              id={`${id}-input`}
               type="file"
               onChange={this.handleChange}
             />
 
-            <label htmlFor="flat-button-file">
+            <label htmlFor={`${id}-input`}>
               <Button
                 component="span"
                 variant="contained"
@@ -126,7 +117,8 @@ export class FileInput extends Component {
 
 FileInput.propTypes = {
   classes: PropTypes.object.isRequired,
-  getImage: PropTypes.func.isRequired
+  getImage: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({

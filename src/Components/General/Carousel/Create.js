@@ -25,8 +25,8 @@ const styles = theme => ({
   formItems: {
     marginBottom: 20
   },
-  file: {
-    display: 'none'
+  image: {
+    width: 250
   }
 });
 
@@ -38,7 +38,6 @@ export class Create extends Component {
 
   onSubmit = () => {
     this.props.addCarousel(this.props.image);
-
     this.onCancel();
   };
 
@@ -52,7 +51,11 @@ export class Create extends Component {
       >
         <DialogTitle id="create-title">Ajouter une image</DialogTitle>
         <DialogContent className={classes.form}>
-          <FileInput />
+          {image ? (
+            <img src={image} className={classes.image} />
+          ) : (
+            <FileInput />
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.onCancel} color="secondary">

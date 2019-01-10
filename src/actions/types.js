@@ -24,3 +24,6 @@ export const IMAGE_UPLOADED = 'IMAGE_UPLOADED';
 export const UPLOADING = 'UPLOADING';
 export const RESET_IMAGE = 'RESET_IMAGE';
 export const GET_IMAGE = 'GET_IMAGE';
+export const SNAP_UPLOADED = 'SNAP_UPLOADED';
+export const PIC_UPLOADED = 'PIC_UPLOADED';
+export const PIC_DELETE = 'PIC_DELETE';

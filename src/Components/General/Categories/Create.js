@@ -28,14 +28,11 @@ const styles = theme => ({
   formItems: {
     marginBottom: 20
   },
-  file: {
-    display: 'none'
-  },
-  input: {
-    display: 'none'
-  },
   snackbar: {
     backgroundColor: '#d32f2f'
+  },
+  image: {
+    width: 250
   }
 });
 
@@ -71,7 +68,7 @@ export class Create extends Component {
   };
 
   render() {
-    const { classes, open } = this.props;
+    const { classes, open, snap } = this.props;
     const { name, snackbar } = this.state;
     return (
       <Dialog
@@ -89,7 +86,7 @@ export class Create extends Component {
             value={name}
             onChange={this.onChangeName}
           />
-          <FileInput />
+          {snap ? <img src={snap} className={classes.image} /> : <FileInput />}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleCancel} color="secondary">

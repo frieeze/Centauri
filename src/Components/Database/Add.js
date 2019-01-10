@@ -20,17 +20,17 @@ import {
   MenuItem,
   Input,
   Chip,
-  Paper
+  Paper,
+  Snackbar,
+  SnackbarContent
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import Create from '@material-ui/icons/Create';
 import FileInput from '../FileInput';
 
 import { connect } from 'react-redux';
 import { addItem } from '../../actions/databaseActions';
 import { getCategoriesNames } from '../../actions/categoriesActions';
-import { getImage, resetImage } from '../../actions/imageActions';
+import { getImage, resetImage, deletePic } from '../../actions/imageActions';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -67,34 +67,26 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit / 4
+  },
+  snackbar: {
+    backgroundColor: '#d32f2f'
   }
 });
 export class Add extends Component {
   state = {
-    newPic: '',
-    pic: [],
-    name: '',
-    dimension: '',
-    time: '',
-    aim: '',
-    players: '',
-    pickup: '',
-    price: '',
-    snap: '',
+    snackbar: false,
+    name: undefined,
+    dimension: undefined,
+    time: undefined,
+    aim: undefined,
+    players: undefined,
+    pickup: undefined,
+    price: undefined,
     tags: []
   };
 
   handlePicDelete = pic => {
-    this.setState({
-      pic: this.state.pic.filter(img => img !== pic)
-    });
-  };
-
-  handlePicAdd = () => {
-    this.setState({
-      pic: [this.state.newPic, ...this.state.pic],
-      newPic: ''
-    });
+    this.props.deletePic(pic);
   };
 
   handleSelectChange = e => {
@@ -107,9 +99,11 @@ export class Add extends Component {
     this.setState({ [e.target.name]: e.target.checked });
   };
 
+  handleSnackbar = () => this.setState({ snackbar: false });
+
   onSubmit = () => {
     const newItem = {
-      pic: this.state.pic,
+      pic: this.props.pic,
       name: this.state.name,
       desc: {
         dimension: this.state.dimension,
@@ -120,28 +114,46 @@ export class Add extends Component {
         pickup: this.state.pickup
       },
       price: this.state.price,
-      snap: this.state.snap,
+      snap: this.props.snap,
       tags: this.state.tags
     };
-    this.props.addItem(newItem);
+    this.validator(newItem)
+      ? this.sendItem()
+      : this.setState({ snackbar: true });
+  };
 
+  sendItem = item => {
+    this.props.addItem(item);
     this.resetState();
+    this.props.resetImage();
+  };
+
+  validator = item => {
+    if (item.pic === [] || item.tags === []) return false;
+    switch (undefined) {
+      case item.name:
+        return false;
+      case item.desc:
+        return false;
+      case item.price:
+        return false;
+      case item.snap:
+        return false;
+      default:
+        return true;
+    }
   };
 
   resetState = () => {
     this.setState({
-      modifySnap: false,
-      pic: [],
-      name: '',
-      dimension: '',
-      time: '',
-      aim: '',
-      players: '',
-      pickup: '',
-      price: '',
-      snap: '',
-      tags: [],
-      newPic: undefined
+      name: undefined,
+      dimension: undefined,
+      time: undefined,
+      aim: undefined,
+      players: undefined,
+      pickup: undefined,
+      price: undefined,
+      tags: []
     });
   };
 
@@ -150,8 +162,8 @@ export class Add extends Component {
   }
 
   render() {
-    const { classes, data } = this.props;
-    const { modifySnap } = this.state;
+    const { classes } = this.props;
+    const { snackbar } = this.state;
     return (
       <div className={classes.root}>
         <Paper>
@@ -253,24 +265,19 @@ export class Add extends Component {
                 <ListItem key="snap">
                   <img
                     src={
-                      this.state.snap
-                        ? this.state.snap
+                      this.props.snap
+                        ? this.props.snap
                         : 'https://via.placeholder.com/500x300.png?text=Aperçu'
                     }
                     className={classes.images}
                     alt="Aperçu de l'article"
                   />
                   <ListItemSecondaryAction>
-                    <FileInput title="Modifier" />
+                    <FileInput title="Modifier" name="snap" id="snapMod" />
                   </ListItemSecondaryAction>
                 </ListItem>
-                {this.state.pic.map(img => (
-                  <ListItem
-                    key={
-                      'img-' +
-                      (this.state.pic ? this.state.pic : data.pic).indexOf(img)
-                    }
-                  >
+                {this.props.pic.map(img => (
+                  <ListItem key={'img-' + this.props.pic.indexOf(img)}>
                     <img
                       src={img}
                       className={classes.images}
@@ -291,18 +298,7 @@ export class Add extends Component {
               <Typography variant="subtitle1">Ajouter une image :</Typography>
               <List>
                 <ListItem>
-                  <TextField
-                    value={this.state.newPic}
-                    label="URL"
-                    id="newPic"
-                    name="newPic"
-                    onChange={this.handleChange}
-                  />
-                  <ListItemSecondaryAction>
-                    <Fab color="primary" onClick={this.handlePicAdd}>
-                      <AddIcon />
-                    </Fab>
-                  </ListItemSecondaryAction>
+                  <FileInput id="addPic" name="pic" />
                 </ListItem>
               </List>
               <Typography variant="body2">
@@ -319,6 +315,25 @@ export class Add extends Component {
             </Button>
           </DialogActions>
         </Paper>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          open={snackbar}
+          onClose={this.handleClose}
+          autoHideDuration={6000}
+        >
+          <SnackbarContent
+            message={
+              <span id="client-snackbar">
+                Des champs essentiels ne sont pas renseignés
+              </span>
+            }
+            aria-describedby="client-snackbar"
+            className={classes.snackbar}
+          />
+        </Snackbar>
       </div>
     );
   }
@@ -329,12 +344,13 @@ Add.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  data: state.database.selected,
   categories: state.categories.names,
-  image: state.image.img
+  image: state.image.img,
+  snap: state.image.snap,
+  pic: state.image.pic
 });
 
 export default connect(
   mapStateToProps,
-  { addItem, getCategoriesNames, getImage, resetImage }
+  { addItem, getCategoriesNames, getImage, resetImage, deletePic }
 )(withStyles(styles)(Add));
