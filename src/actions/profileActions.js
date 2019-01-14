@@ -1,4 +1,4 @@
-import { GET_PROFILE, LOG_IN, LOG_OUT } from './types';
+import { GET_PROFILE, LOG_IN, LOG_OUT, LOG_ERROR } from './types';
 import axios from 'axios';
 
 export const getProfile = () => {
@@ -8,14 +8,15 @@ export const getProfile = () => {
 };
 
 export const logIn = (user, pwd) => dispatch => {
-  axios.post('api/oskur/login', { user: user, pwd: pwd }).then(res => {
+  axios.post('api/auth/login', { username: user, password: pwd }).then(res => {
+    console.log(res.data);
     if (res.data.logged) {
-      sessionStorage.setItem('auth_token', res.data.token);
+      sessionStorage.setItem('auth_token', 'Bearer ' + res.data.token);
       dispatch({
         type: LOG_IN,
         payload: res.data.logged
       });
-    } else dispatch({ type: LOG_OUT });
+    } else dispatch({ type: LOG_ERROR });
   });
 };
 

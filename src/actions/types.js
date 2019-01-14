@@ -1,5 +1,6 @@
 export const GET_PROFILE = 'GET_PROFILE';
 export const LOG_IN = 'LOG_IN';
+export const LOG_ERROR = 'LOG_ERROR';
 export const LOG_OUT = 'LOG_OUT';
 
 export const GET_DATABASE = 'GET_DATABASE';
@@ -27,3 +28,6 @@ export const GET_IMAGE = 'GET_IMAGE';
 export const SNAP_UPLOADED = 'SNAP_UPLOADED';
 export const PIC_UPLOADED = 'PIC_UPLOADED';
 export const PIC_DELETE = 'PIC_DELETE';
+
+export const NEW_STATS = 'NEW_STATS';
+export const RESET_STATS = 'RESET_STATS';

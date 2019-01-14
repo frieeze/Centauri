@@ -39,7 +39,7 @@ class Header extends Component {
     },
     {
       page: 'Analytics',
-      sub: ['Semaine', 'Mois', 'Année', 'Tout']
+      sub: ['Cette semaine', 'Ce mois ci', 'Personnalisé']
     }
   ];
 

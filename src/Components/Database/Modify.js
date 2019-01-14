@@ -30,6 +30,8 @@ import Create from '@material-ui/icons/Create';
 import { connect } from 'react-redux';
 import { getItem, modifyItem } from '../../actions/databaseActions';
 import { getCategoriesNames } from '../../actions/categoriesActions';
+import { getImage, resetImage, deletePic } from '../../actions/imageActions';
+import FileInput from '../FileInput';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -66,6 +68,9 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit / 4
+  },
+  snackbar: {
+    backgroundColor: '#d32f2f'
   }
 });
 export class Modify extends Component {
@@ -86,15 +91,6 @@ export class Modify extends Component {
     });
   };
 
-  handlePicAdd = () => {
-    this.setState({
-      pic: [
-        this.state.newPic,
-        ...(this.state.pic ? this.state.pic : this.props.data.pic)
-      ]
-    });
-  };
-
   handleSelectChange = e => {
     this.setState({ tags: e.target.value });
   };
@@ -108,7 +104,6 @@ export class Modify extends Component {
   onSubmit = () => {
     const newItem = {
       _id: this.props.data._id,
-      pic: this.state.pic ? this.state.pic : this.props.data.pic,
       name: this.state.name ? this.state.name : this.props.data.name,
       desc: {
         dimension: this.state.dimension
@@ -125,7 +120,11 @@ export class Modify extends Component {
             : this.props.data.desc.pickup
       },
       price: this.state.price ? this.state.price : this.props.data.price,
-      snap: this.state.snap ? this.state.snap : this.props.data.snap,
+      pic: [
+        ...this.props.pic,
+        ...(this.state.pic ? this.state.pic : this.props.data.pic)
+      ],
+      snap: this.props.snap ? this.props.snap : this.props.data.snap,
       tags: this.state.tags ? this.state.tags : this.props.categories
     };
     this.props.modifyItem(newItem);
@@ -148,6 +147,7 @@ export class Modify extends Component {
       tags: undefined
     });
     this.props.toggle();
+    this.props.resetImage();
   };
   componentDidMount() {
     this.props.getCategoriesNames();
@@ -268,37 +268,21 @@ export class Modify extends Component {
               <List className={classes.list}>
                 <ListItem key="snap">
                   <img
-                    src={this.state.snap ? this.state.snap : data.snap}
+                    src={
+                      this.props.snap ? this.props.snap : this.props.data.snap
+                    }
                     className={classes.images}
                     alt="Aperçu de l'article"
                   />
                   <ListItemSecondaryAction>
-                    {modifySnap ? (
-                      <TextField
-                        defaultValue={data.snap}
-                        label="URL"
-                        id="snap"
-                        name="snap"
-                        onChange={this.handleChange}
-                      />
-                    ) : (
-                      <IconButton
-                        variant="contained"
-                        color="primary"
-                        onClick={this.modifySnap}
-                      >
-                        <Create />
-                      </IconButton>
-                    )}
+                    <FileInput title="Modifier" name="snap" id="snapMod" />
                   </ListItemSecondaryAction>
                 </ListItem>
-                {(this.state.pic ? this.state.pic : data.pic).map(img => (
-                  <ListItem
-                    key={
-                      'img-' +
-                      (this.state.pic ? this.state.pic : data.pic).indexOf(img)
-                    }
-                  >
+                {[
+                  ...this.props.pic,
+                  ...(this.state.pic ? this.state.pic : this.props.data.pic)
+                ].map(img => (
+                  <ListItem key={'img-' + this.props.pic.indexOf(img)}>
                     <img
                       src={img}
                       className={classes.images}
@@ -319,21 +303,7 @@ export class Modify extends Component {
               <Typography variant="subtitle1">Ajouter une image :</Typography>
               <List>
                 <ListItem>
-                  <TextField
-                    label="URL"
-                    id="newPic"
-                    name="newPic"
-                    onChange={this.handleChange}
-                  />
-                  <ListItemSecondaryAction>
-                    <Fab
-                      color="primary"
-                      onClick={this.handlePicAdd}
-                      size="small"
-                    >
-                      <AddIcon />
-                    </Fab>
-                  </ListItemSecondaryAction>
+                  <FileInput id="addPic" name="pic" />
                 </ListItem>
               </List>
               <Typography variant="body2">
@@ -363,10 +333,12 @@ Modify.propTypes = {
 
 const mapStateToProps = state => ({
   data: state.database.selected,
-  categories: state.categories.names
+  categories: state.categories.names,
+  snap: state.image.snap,
+  pic: state.image.pic
 });
 
 export default connect(
   mapStateToProps,
-  { getItem, modifyItem, getCategoriesNames }
+  { getItem, modifyItem, getCategoriesNames, getImage, resetImage, deletePic }
 )(withStyles(styles)(Modify));

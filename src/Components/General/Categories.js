@@ -58,14 +58,6 @@ class Categories extends Component {
     this.props.deleteCategory(this.state.removeId);
   };
 
-  /*modifyToggle = cat => {
-    this.setState({
-      modId: cat.id,
-      modName: cat.name,
-      modSnap: cat.snap,
-      modify: !this.state.modify
-    });
-  };*/
   createToggle = () => {
     this.setState({ create: !this.state.create });
   };

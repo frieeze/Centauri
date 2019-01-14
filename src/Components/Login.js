@@ -9,8 +9,9 @@ import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import image from '../assets/img/background.jpg';
 
-import { logIn } from '../actions/profileActions';
+import { logIn, logOut } from '../actions/profileActions';
 import { connect } from 'react-redux';
+import { Snackbar, SnackbarContent } from '@material-ui/core';
 
 const styles = {
   image: {
@@ -27,6 +28,9 @@ const styles = {
   button: {
     marginTop: 20,
     width: 200
+  },
+  snackbar: {
+    backgroundColor: '#d32f2f'
   }
 };
 
@@ -48,6 +52,8 @@ export class Login extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  handleSnackbar = () => this.props.logOut();
 
   render() {
     const { user, pwd } = this.state;
@@ -85,13 +91,31 @@ export class Login extends Component {
             </form>
           </DialogContent>
         </Dialog>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          open={this.props.logError}
+          onClose={this.handleSnackbar}
+          autoHideDuration={6000}
+        >
+          <SnackbarContent
+            message={
+              <span id="client-snackbar">Erreur d'authentification</span>
+            }
+            aria-describedby="client-snackbar"
+            className={classes.snackbar}
+          />
+        </Snackbar>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  isLogged: state.profile.isLogged
+  isLogged: state.profile.isLogged,
+  logError: state.profile.logError
 });
 
 Login.propTypes = {
@@ -100,5 +124,5 @@ Login.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { logIn }
+  { logIn, logOut }
 )(withStyles(styles)(Login));

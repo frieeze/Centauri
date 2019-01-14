@@ -13,7 +13,6 @@ import {
   ListItem,
   ListItemSecondaryAction,
   IconButton,
-  Fab,
   FormControl,
   InputLabel,
   Select,
@@ -129,7 +128,7 @@ export class Add extends Component {
   };
 
   validator = item => {
-    if (item.pic === [] || item.tags === []) return false;
+    if (item.tags === []) return false;
     switch (undefined) {
       case item.name:
         return false;
@@ -321,7 +320,7 @@ export class Add extends Component {
             horizontal: 'right'
           }}
           open={snackbar}
-          onClose={this.handleClose}
+          onClose={this.handleSnackbar}
           autoHideDuration={6000}
         >
           <SnackbarContent

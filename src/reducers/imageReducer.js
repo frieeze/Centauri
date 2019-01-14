@@ -49,7 +49,7 @@ export default function(state = initialState, action) {
         ...state,
         img: undefined,
         snap: undefined,
-        pic: undefined
+        pic: []
       };
     case UPLOADING:
       return {

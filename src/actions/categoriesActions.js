@@ -8,12 +8,18 @@ import {
 import axios from 'axios';
 
 export const getCategories = () => dispatch => {
-  axios.get('api/tags').then(res => {
-    dispatch({
-      type: GET_CATEGORIES,
-      payload: res.data.data
+  axios
+    .get('api/tags', {
+      headers: {
+        Authorization: sessionStorage.getItem('auth_token')
+      }
+    })
+    .then(res => {
+      dispatch({
+        type: GET_CATEGORIES,
+        payload: res.data.data
+      });
     });
-  });
 };
 
 export const addCategory = category => dispatch => {

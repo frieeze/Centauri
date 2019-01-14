@@ -1,7 +1,8 @@
-import { GET_PROFILE, LOG_IN, LOG_OUT } from '../actions/types';
+import { GET_PROFILE, LOG_IN, LOG_OUT, LOG_ERROR } from '../actions/types';
 
 const initialState = {
-  isLogged: false
+  isLogged: true,
+  logError: false
 };
 
 export default function(state = initialState, action) {
@@ -15,10 +16,17 @@ export default function(state = initialState, action) {
         ...state,
         isLogged: action.payload
       };
+    case LOG_ERROR:
+      return {
+        ...state,
+        logError: true,
+        isLogged: false
+      };
     case LOG_OUT:
       return {
         ...state,
-        isLogged: false
+        isLogged: false,
+        logError: false
       };
     default:
       return state;

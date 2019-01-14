@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import General from './General/General';
 import Database from './Database/Database';
+import Stats from './Stats/Stats';
 
 class Content extends Component {
   render() {
@@ -13,6 +14,8 @@ class Content extends Component {
               return <General subpage={current.subpage} />;
             case 'Base de données':
               return <Database subpage={current.subpage} />;
+            case 'Analytics':
+              return <Stats subpage={current.subpage} />;
             default:
               return <General subpage={current.subpage} />;
           }
