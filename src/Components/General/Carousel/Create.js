@@ -52,7 +52,7 @@ export class Create extends Component {
         <DialogTitle id="create-title">Ajouter une image</DialogTitle>
         <DialogContent className={classes.form}>
           {image ? (
-            <img src={image} className={classes.image} />
+            <img src={image} className={classes.image} alt="preview" />
           ) : (
             <FileInput />
           )}

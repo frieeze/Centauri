@@ -34,41 +34,6 @@ const months = [
   { num: '12', name: 'Décembre' }
 ];
 
-const nbJours = (year, month) => {
-  var nbreJour = 0;
-
-  if (month <= 6) {
-    if (month % 2 == 0) {
-      nbreJour = 31;
-    } else {
-      nbreJour = 30;
-    }
-  } else {
-    if (month % 2 == 1) {
-      nbreJour = 30;
-    } else {
-      nbreJour = 31;
-    }
-  }
-  if (month == 1) {
-    if (year % 4 == 0) {
-      if (year % 100 == 0) {
-        if (year % 400 == 0) {
-          nbreJour = 29;
-        } else {
-          nbreJour = 28;
-        }
-      } else {
-        nbreJour = 29;
-      }
-    } else {
-      nbreJour = 28;
-    }
-  }
-
-  return nbreJour;
-};
-
 const data = stats => {
   return {
     labels: stats.labels,
@@ -98,6 +63,19 @@ const data = stats => {
         fill: true,
         borderWidth: 2,
         data: stats.total
+      },
+      {
+        label: 'Devis demandés',
+        borderColor: '#085add',
+        pointBorderColor: '#FFF',
+        pointBackgroundColor: '#085add',
+        pointBorderWidth: 2,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 1,
+        pointRadius: 4,
+        fill: true,
+        borderWidth: 2,
+        data: stats.mail
       }
     ]
   };
@@ -185,7 +163,7 @@ const styles = theme => ({
     backgroundColor: '#d32f2f'
   },
   graph: {
-    maxHeight: 300
+    height: 500
   }
 });
 export class Custom extends Component {
@@ -197,6 +175,11 @@ export class Custom extends Component {
     scale: '',
     snackbar: false
   };
+
+  componentDidMount() {
+    this.props.resetStats();
+  }
+
   handleSnackbar = () => this.setState({ snackbar: false });
 
   handleChange = e => {
@@ -221,7 +204,8 @@ export class Custom extends Component {
 
     return {
       total: stats.map(x => x.total),
-      unique: stats.map(x => x.total),
+      unique: stats.map(x => x.unique),
+      mail: stats.map(x => x.mail),
       labels: stats.map(x => {
         switch (this.props.scale) {
           case 'day':
@@ -363,11 +347,9 @@ export class Custom extends Component {
               </Button>
             </div>
           </div>
-          <Line
-            data={data(this.parseStats())}
-            options={options}
-            clasName={classes.graph}
-          />
+          <div className={classes.graph}>
+            <Line data={data(this.parseStats())} options={options} />
+          </div>
         </Paper>
         <Snackbar
           anchorOrigin={{

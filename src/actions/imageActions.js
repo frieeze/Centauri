@@ -15,7 +15,7 @@ export const uploadImage = (data, name) => dispatch => {
   axios
     .post('api/oskur/upload-image', data, {
       headers: {
-        Authorization: sessionStorage.getItem('auth_token')
+        Authorization: localStorage.getItem('auth_token')
       }
     })
     .then(res => {

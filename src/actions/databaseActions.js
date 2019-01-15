@@ -12,7 +12,7 @@ export const getDatabase = () => dispatch => {
   axios
     .get('api/oskur/games', {
       headers: {
-        Authorization: sessionStorage.getItem('auth_token')
+        Authorization: localStorage.getItem('auth_token')
       }
     })
     .then(res => {
@@ -36,7 +36,7 @@ export const modifyItem = item => dispatch => {
       { game: item },
       {
         headers: {
-          Authorization: sessionStorage.getItem('auth_token')
+          Authorization: localStorage.getItem('auth_token')
         }
       }
     )
@@ -54,7 +54,7 @@ export const addItem = item => dispatch => {
       { game: item },
       {
         headers: {
-          Authorization: sessionStorage.getItem('auth_token')
+          Authorization: localStorage.getItem('auth_token')
         }
       }
     )
@@ -69,7 +69,7 @@ export const deleteItem = id => dispatch => {
   axios
     .delete(`api/oskur/game/${id}`, {
       headers: {
-        Authorization: sessionStorage.getItem('auth_token')
+        Authorization: localStorage.getItem('auth_token')
       }
     })
     .then(res => {

@@ -17,6 +17,9 @@ const styles = theme => ({
 });
 
 export class Stats extends Component {
+  componentWillMount() {
+    this.props.resetStats();
+  }
   render() {
     const { subpage } = this.props;
     return (

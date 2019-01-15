@@ -77,6 +77,7 @@ class Header extends Component {
             </Grid>
           </Toolbar>
         </AppBar>
+
         <AppBar
           component="div"
           className={classes.secondaryBar}
@@ -89,11 +90,12 @@ class Header extends Component {
             textColor="inherit"
             onChange={this.handleChange}
           >
-            {this.subpages
-              .filter(item => item.page === current.page)[0]
-              .sub.map(name => (
-                <Tab textColor="inherit" label={name} key={name} />
-              ))}
+            {current.page !== 'Accueil' &&
+              this.subpages
+                .filter(item => item.page === current.page)[0]
+                .sub.map(name => (
+                  <Tab textColor="inherit" label={name} key={name} />
+                ))}
           </Tabs>
         </AppBar>
       </React.Fragment>

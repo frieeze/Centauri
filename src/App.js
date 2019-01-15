@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Login from './Components/Login';
 import PaperBase from './Components/PaperBase';
 
-import { getProfile } from './actions/profileActions';
+import { logTest } from './actions/profileActions';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
@@ -131,6 +131,9 @@ theme = {
 const styles = {};
 
 class App extends Component {
+  componentDidMount() {
+    this.props.logTest();
+  }
   render() {
     const { isLogged } = this.props;
 
@@ -155,6 +158,6 @@ App.propTypes = {
 export default connect(
   mapStateToProps,
   {
-    getProfile
+    logTest
   }
 )(withStyles(styles)(App));

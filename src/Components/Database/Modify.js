@@ -15,7 +15,6 @@ import {
   ListItem,
   ListItemSecondaryAction,
   IconButton,
-  Fab,
   FormControl,
   InputLabel,
   Select,
@@ -24,8 +23,6 @@ import {
   Chip
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import Create from '@material-ui/icons/Create';
 
 import { connect } from 'react-redux';
 import { getItem, modifyItem } from '../../actions/databaseActions';
@@ -75,12 +72,7 @@ const styles = theme => ({
 });
 export class Modify extends Component {
   state = {
-    modifySnap: false,
     tags: undefined
-  };
-
-  modifySnap = () => {
-    this.setState({ modifySnap: true });
   };
 
   handlePicDelete = pic => {
@@ -134,7 +126,6 @@ export class Modify extends Component {
 
   onCancel = () => {
     this.setState({
-      modifySnap: false,
       pic: undefined,
       name: undefined,
       dimension: undefined,
@@ -159,7 +150,6 @@ export class Modify extends Component {
 
   render() {
     const { open, classes, data } = this.props;
-    const { modifySnap } = this.state;
     return (
       <Dialog
         open={open}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Line } from 'react-chartjs-2';
 
@@ -12,22 +12,22 @@ const nbJours = (year, month) => {
   var nbreJour = 0;
 
   if (month <= 6) {
-    if (month % 2 == 0) {
+    if (month % 2 === 0) {
       nbreJour = 31;
     } else {
       nbreJour = 30;
     }
   } else {
-    if (month % 2 == 1) {
+    if (month % 2 === 1) {
       nbreJour = 30;
     } else {
       nbreJour = 31;
     }
   }
-  if (month == 1) {
-    if (year % 4 == 0) {
-      if (year % 100 == 0) {
-        if (year % 400 == 0) {
+  if (month === 1) {
+    if (year % 4 === 0) {
+      if (year % 100 === 0) {
+        if (year % 400 === 0) {
           nbreJour = 29;
         } else {
           nbreJour = 28;
@@ -75,6 +75,19 @@ const data = stats => {
         fill: true,
         borderWidth: 2,
         data: stats.total
+      },
+      {
+        label: 'Devis demandés',
+        borderColor: '#085add',
+        pointBorderColor: '#FFF',
+        pointBackgroundColor: '#085add',
+        pointBorderWidth: 2,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 1,
+        pointRadius: 4,
+        fill: true,
+        borderWidth: 2,
+        data: stats.mail
       }
     ]
   };
@@ -152,10 +165,11 @@ const styles = theme => ({
 
 export class Month extends Component {
   componentDidMount() {
+    this.props.resetStats();
     this.props.getStats('month');
   }
 
-  getStats = () => {
+  parseStats = () => {
     const { stats } = this.props;
 
     return {
@@ -176,6 +190,15 @@ export class Month extends Component {
           stats.find(day => day.day.month === k)
             ? stats.find(day => day.day.month === k).unique
             : undefined
+      ),
+      mail: Array.from(
+        {
+          length: nbJours(new Date().getFullYear(), new Date().getMonth())
+        },
+        (v, k) =>
+          stats.find(day => day.day.month === k)
+            ? stats.find(day => day.day.month === k).mail
+            : undefined
       )
     };
   };
@@ -185,7 +208,7 @@ export class Month extends Component {
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
-          <Line data={data(this.getStats())} options={options} />
+          <Line data={data(this.parseStats())} options={options} />
         </Paper>
       </div>
     );

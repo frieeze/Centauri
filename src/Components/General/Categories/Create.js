@@ -86,7 +86,11 @@ export class Create extends Component {
             value={name}
             onChange={this.onChangeName}
           />
-          {snap ? <img src={snap} className={classes.image} /> : <FileInput />}
+          {snap ? (
+            <img src={snap} className={classes.image} alt="preview" />
+          ) : (
+            <FileInput />
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleCancel} color="secondary">

@@ -11,7 +11,7 @@ export const getCategories = () => dispatch => {
   axios
     .get('api/tags', {
       headers: {
-        Authorization: sessionStorage.getItem('auth_token')
+        Authorization: localStorage.getItem('auth_token')
       }
     })
     .then(res => {
@@ -31,7 +31,7 @@ export const addCategory = category => dispatch => {
       },
       {
         headers: {
-          Authorization: sessionStorage.getItem('auth_token')
+          Authorization: localStorage.getItem('auth_token')
         }
       }
     )
@@ -51,7 +51,7 @@ export const deleteCategory = id => dispatch => {
   axios
     .delete(`api/tags/${id}`, {
       headers: {
-        Authorization: sessionStorage.getItem('auth_token')
+        Authorization: localStorage.getItem('auth_token')
       }
     })
     .then(res => {

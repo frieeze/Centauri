@@ -31,3 +31,4 @@ export const PIC_DELETE = 'PIC_DELETE';
 
 export const NEW_STATS = 'NEW_STATS';
 export const RESET_STATS = 'RESET_STATS';
+export const HOME_STATS = 'HOME_STATS';

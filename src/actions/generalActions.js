@@ -29,7 +29,7 @@ export const deleteCarousel = image => dispatch => {
   axios
     .delete(`api/oskur/carousel/${image}`, {
       headers: {
-        Authorization: sessionStorage.getItem('auth_token')
+        Authorization: localStorage.getItem('auth_token')
       }
     })
     .then(res => {
@@ -49,7 +49,7 @@ export const addCarousel = image => dispatch => {
       { image: image },
       {
         headers: {
-          Authorization: sessionStorage.getItem('auth_token')
+          Authorization: localStorage.getItem('auth_token')
         }
       }
     )
@@ -70,7 +70,7 @@ export const saveDelpic = delpic => dispatch => {
       { pickdelinfo: delpic },
       {
         headers: {
-          Authorization: sessionStorage.getItem('auth_token')
+          Authorization: localStorage.getItem('auth_token')
         }
       }
     )

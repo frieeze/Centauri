@@ -93,7 +93,11 @@ class Navigator extends Component {
           >
             Centauri
           </ListItem>
-          <ListItem className={classNames(classes.item, classes.itemCategory)}>
+          <ListItem
+            className={classNames(classes.item, classes.itemCategory)}
+            onClick={handlePage.bind(this, 'Accueil')}
+            button
+          >
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>

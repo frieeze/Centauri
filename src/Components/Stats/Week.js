@@ -37,6 +37,19 @@ const data = stats => {
         fill: true,
         borderWidth: 2,
         data: stats.total
+      },
+      {
+        label: 'Devis demandés',
+        borderColor: '#085add',
+        pointBorderColor: '#FFF',
+        pointBackgroundColor: '#085add',
+        pointBorderWidth: 2,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 1,
+        pointRadius: 4,
+        fill: true,
+        borderWidth: 2,
+        data: stats.mail
       }
     ]
   };
@@ -114,9 +127,10 @@ const styles = theme => ({
 
 export class Week extends Component {
   componentDidMount() {
+    this.props.resetStats();
     this.props.getStats('week');
   }
-  getStats = () => {
+  parseStats = () => {
     const { stats } = this.props;
 
     return {
@@ -137,6 +151,15 @@ export class Week extends Component {
           stats.find(day => day.day.week - 1 === k)
             ? stats.find(day => day.day.week - 1 === k).unique
             : undefined
+      ),
+      mail: Array.from(
+        {
+          length: 7
+        },
+        (v, k) =>
+          stats.find(day => day.day.week - 1 === k)
+            ? stats.find(day => day.day.week - 1 === k).mail
+            : undefined
       )
     };
   };
@@ -146,7 +169,7 @@ export class Week extends Component {
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
-          <Line data={data(this.getStats())} options={options} />
+          <Line data={data(this.parseStats())} options={options} />
         </Paper>
       </div>
     );
