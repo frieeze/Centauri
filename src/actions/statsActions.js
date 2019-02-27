@@ -1,5 +1,5 @@
-import { NEW_STATS, RESET_STATS, HOME_STATS, LOG_OUT } from './types';
-import axios from 'axios';
+import { NEW_STATS, RESET_STATS, HOME_STATS, LOG_OUT } from "./types";
+import axios from "axios";
 
 export const getStats = (scale, begin, end) => dispatch => {
   axios
@@ -9,7 +9,7 @@ export const getStats = (scale, begin, end) => dispatch => {
         : `api/analytic/${scale}`,
       {
         headers: {
-          Authorization: localStorage.getItem('auth_token')
+          Authorization: sessionStorage.getItem("auth_token")
         }
       }
     )
@@ -27,16 +27,16 @@ export const getStats = (scale, begin, end) => dispatch => {
 
 export const getHomeStats = () => dispatch => {
   axios
-    .get('api/analytic/home', {
+    .get("api/analytic/home", {
       headers: {
-        Authorization: localStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res =>
       res.data.logged
         ? dispatch({
             type: HOME_STATS,
-            payload: { datas: res.data.data, scale: '' }
+            payload: { datas: res.data.data, scale: "" }
           })
         : dispatch({ type: LOG_OUT })
     );

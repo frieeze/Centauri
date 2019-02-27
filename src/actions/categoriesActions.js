@@ -4,14 +4,14 @@ import {
   GET_CATEGORIES,
   GET_CATEGORIES_NAMES,
   LOG_OUT
-} from './types';
-import axios from 'axios';
+} from "./types";
+import axios from "axios";
 
 export const getCategories = () => dispatch => {
   axios
-    .get('api/tags', {
+    .get("api/tags", {
       headers: {
-        Authorization: localStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res => {
@@ -25,13 +25,13 @@ export const getCategories = () => dispatch => {
 export const addCategory = category => dispatch => {
   axios
     .post(
-      'api/tags',
+      "api/tags",
       {
         tag: category
       },
       {
         headers: {
-          Authorization: localStorage.getItem('auth_token')
+          Authorization: sessionStorage.getItem("auth_token")
         }
       }
     )
@@ -51,7 +51,7 @@ export const deleteCategory = id => dispatch => {
   axios
     .delete(`api/tags/${id}`, {
       headers: {
-        Authorization: localStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res => {

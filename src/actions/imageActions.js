@@ -7,15 +7,15 @@ import {
   SNAP_UPLOADED,
   PIC_UPLOADED,
   PIC_DELETE
-} from './types';
-import axios from 'axios';
+} from "./types";
+import axios from "axios";
 
 export const uploadImage = (data, name) => dispatch => {
   uploading();
   axios
-    .post('api/oskur/upload-image', data, {
+    .post("api/oskur/upload-image", data, {
       headers: {
-        Authorization: localStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res => {
@@ -23,12 +23,14 @@ export const uploadImage = (data, name) => dispatch => {
       res.data.logged
         ? dispatch({
             type:
-              name === 'snap'
+              name === "snap"
                 ? SNAP_UPLOADED
-                : name === 'pic'
+                : name === "pic"
                 ? PIC_UPLOADED
                 : IMAGE_UPLOADED,
-            payload: `http://localhost/uploads/${res.data.img.filename}`
+            payload: `http://stock.passionloisir.fr/uploads/${
+              res.data.img.filename
+            }`
           })
         : dispatch({ type: LOG_OUT });
     });

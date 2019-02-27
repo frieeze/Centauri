@@ -4,14 +4,14 @@ import {
   ADD_CAROUSEL,
   DELETE_CAROUSEL,
   LOG_OUT
-} from './types';
-import axios from 'axios';
+} from "./types";
+import axios from "axios";
 
 export const getGeneral = () => dispatch => {
   axios
-    .get('api/oskur/general', {
+    .get("api/oskur/general", {
       headers: {
-        Authorization: sessionStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res => {
@@ -29,7 +29,7 @@ export const deleteCarousel = image => dispatch => {
   axios
     .delete(`api/oskur/carousel/${image}`, {
       headers: {
-        Authorization: localStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res => {
@@ -45,11 +45,11 @@ export const deleteCarousel = image => dispatch => {
 export const addCarousel = image => dispatch => {
   axios
     .post(
-      'api/oskur/carousel',
+      "api/oskur/carousel",
       { image: image },
       {
         headers: {
-          Authorization: localStorage.getItem('auth_token')
+          Authorization: sessionStorage.getItem("auth_token")
         }
       }
     )
@@ -66,11 +66,11 @@ export const addCarousel = image => dispatch => {
 export const saveDelpic = delpic => dispatch => {
   axios
     .post(
-      'api/oskur/delpic',
+      "api/oskur/delpic",
       { pickdelinfo: delpic },
       {
         headers: {
-          Authorization: localStorage.getItem('auth_token')
+          Authorization: sessionStorage.getItem("auth_token")
         }
       }
     )

@@ -5,14 +5,14 @@ import {
   ADD_DB_ITEM,
   DELETE_DB_ITEM,
   LOG_OUT
-} from './types';
-import axios from 'axios';
+} from "./types";
+import axios from "axios";
 
 export const getDatabase = () => dispatch => {
   axios
-    .get('api/oskur/games', {
+    .get("api/oskur/games", {
       headers: {
-        Authorization: localStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res => {
@@ -32,11 +32,11 @@ export const getItem = id => {
 export const modifyItem = item => dispatch => {
   axios
     .post(
-      'api/oskur/modgame',
+      "api/oskur/modgame",
       { game: item },
       {
         headers: {
-          Authorization: localStorage.getItem('auth_token')
+          Authorization: sessionStorage.getItem("auth_token")
         }
       }
     )
@@ -50,11 +50,11 @@ export const modifyItem = item => dispatch => {
 export const addItem = item => dispatch => {
   axios
     .post(
-      'api/oskur/game',
+      "api/oskur/game",
       { game: item },
       {
         headers: {
-          Authorization: localStorage.getItem('auth_token')
+          Authorization: sessionStorage.getItem("auth_token")
         }
       }
     )
@@ -69,7 +69,7 @@ export const deleteItem = id => dispatch => {
   axios
     .delete(`api/oskur/game/${id}`, {
       headers: {
-        Authorization: localStorage.getItem('auth_token')
+        Authorization: sessionStorage.getItem("auth_token")
       }
     })
     .then(res => {

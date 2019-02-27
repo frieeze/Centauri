@@ -1,5 +1,5 @@
-import { GET_PROFILE, LOG_IN, LOG_OUT, LOG_ERROR } from './types';
-import axios from 'axios';
+import { GET_PROFILE, LOG_IN, LOG_OUT, LOG_ERROR } from "./types";
+import axios from "axios";
 
 export const getProfile = () => {
   return {
@@ -10,11 +10,11 @@ export const getProfile = () => {
 export const logTest = () => dispatch => {
   axios
     .post(
-      'api/auth/test',
+      "api/auth/test",
       {},
       {
         headers: {
-          Authorization: localStorage.getItem('auth_token')
+          Authorization: sessionStorage.getItem("auth_token")
         }
       }
     )
@@ -24,10 +24,10 @@ export const logTest = () => dispatch => {
 };
 
 export const logIn = (user, pwd) => dispatch => {
-  axios.post('api/auth/login', { username: user, password: pwd }).then(res => {
+  axios.post("api/auth/login", { username: user, password: pwd }).then(res => {
     console.log(res.data);
     if (res.data.logged) {
-      localStorage.setItem('auth_token', 'Bearer ' + res.data.token);
+      sessionStorage.setItem("auth_token", "Bearer " + res.data.token);
       dispatch({
         type: LOG_IN
       });
@@ -36,7 +36,7 @@ export const logIn = (user, pwd) => dispatch => {
 };
 
 export const logOut = () => {
-  localStorage.clear();
+  sessionStorage.clear();
   return {
     type: LOG_OUT
   };

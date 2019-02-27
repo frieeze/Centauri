@@ -1,7 +1,7 @@
 import { GET_PROFILE, LOG_IN, LOG_OUT, LOG_ERROR } from '../actions/types';
 
 const initialState = {
-  isLogged: true,
+  isLogged: false,
   logError: false
 };
 
