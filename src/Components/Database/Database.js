@@ -1,32 +1,33 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import Create from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/Delete';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import IconButton from "@material-ui/core/IconButton";
+import Create from "@material-ui/icons/Create";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-import { connect } from 'react-redux';
-import { getDatabase } from '../../actions/databaseActions';
-import Modify from './Modify';
-import Remove from './Remove';
-import Add from './Add';
+import { connect } from "react-redux";
+import { getDatabase } from "../../actions/databaseActions";
+import { getCategories } from "../../actions/categoriesActions";
+import Modify from "./Modify";
+import Remove from "./Remove";
+import Add from "./Add";
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-around',
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-around",
     backgroundColor: theme.palette.background.paper
   },
   gridList: {
-    width: '100%',
+    width: "100%",
     height: 400
   },
   icon: {
-    color: 'rgba(255, 255, 255, 0.54)'
+    color: "rgba(255, 255, 255, 0.54)"
   }
 });
 
@@ -35,11 +36,12 @@ class Database extends Component {
     modify: false,
     create: false,
     remove: false,
-    current: '0'
+    current: "0"
   };
 
   componentDidMount() {
     this.props.getDatabase();
+    this.props.getCategories();
   }
 
   onRemoveClick = id => {
@@ -125,5 +127,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getDatabase }
+  { getDatabase, getCategories }
 )(withStyles(styles)(Database));

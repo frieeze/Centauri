@@ -15,7 +15,6 @@ export const getGeneral = () => dispatch => {
       }
     })
     .then(res => {
-      console.log(res);
       res.data.logged
         ? dispatch({
             type: GET_GEN,

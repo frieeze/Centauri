@@ -3,6 +3,7 @@ import {
   DELETE_CATEGORY,
   GET_CATEGORIES,
   GET_CATEGORIES_NAMES,
+  GET_CAT_ID,
   LOG_OUT
 } from "./types";
 import axios from "axios";
@@ -25,7 +26,7 @@ export const getCategories = () => dispatch => {
 export const addCategory = category => dispatch => {
   axios
     .post(
-      "api/tags",
+      "api/tags/add",
       {
         tag: category
       },
@@ -66,8 +67,41 @@ export const deleteCategory = id => dispatch => {
     });
 };
 
+export const modifyCategory = (cats, mod) => dispatch => {
+  axios
+    .post(
+      "api/tags/update",
+      {
+        order: cats,
+        mod: mod
+      },
+      {
+        headers: {
+          Authorization: sessionStorage.getItem("auth_token")
+        }
+      }
+    )
+    .then(res => {
+      res.data.logged
+        ? dispatch({
+            type: GET_CATEGORIES,
+            payload: res.data.msg
+          })
+        : dispatch({
+            type: LOG_OUT
+          });
+    });
+};
+
 export const getCategoriesNames = () => {
   return {
     type: GET_CATEGORIES_NAMES
+  };
+};
+
+export const getCatById = id => {
+  return {
+    type: GET_CAT_ID,
+    payload: id
   };
 };

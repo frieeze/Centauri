@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import {
   Dialog,
   DialogTitle,
@@ -11,25 +11,25 @@ import {
   DialogActions,
   Snackbar,
   SnackbarContent
-} from '@material-ui/core';
-import FileInput from '../../FileInput';
+} from "@material-ui/core";
+import FileInput from "../../FileInput";
 
-import { connect } from 'react-redux';
-import { addCategory } from '../../../actions/categoriesActions';
-import { getImage, resetImage } from '../../../actions/imageActions';
+import { connect } from "react-redux";
+import { addCategory } from "../../../actions/categoriesActions";
+import { getImage, resetImage } from "../../../actions/imageActions";
 
 const styles = theme => ({
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: 'auto',
-    width: 'fit-content'
+    display: "flex",
+    flexDirection: "column",
+    margin: "auto",
+    width: "fit-content"
   },
   formItems: {
     marginBottom: 20
   },
   snackbar: {
-    backgroundColor: '#d32f2f'
+    backgroundColor: "#d32f2f"
   },
   image: {
     width: 250
@@ -50,7 +50,7 @@ export class Create extends Component {
   onSubmit = () => {
     const { name } = this.state;
     const { snap } = this.props;
-    if (name === '' || snap === '') {
+    if (name === "" || snap === "") {
       this.setState({ snackbar: true });
     } else {
       const newCat = {
@@ -76,7 +76,7 @@ export class Create extends Component {
         onClose={this.handleCancel}
         aria-labelledby="create-title"
       >
-        <DialogTitle id="create-title">Ajouter un catégorie</DialogTitle>
+        <DialogTitle id="create-title">Ajouter une catégorie</DialogTitle>
         <DialogContent className={classes.form}>
           <TextField
             autoFocus
@@ -102,8 +102,8 @@ export class Create extends Component {
         </DialogActions>
         <Snackbar
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right'
+            vertical: "bottom",
+            horizontal: "right"
           }}
           open={snackbar}
           onClose={this.handleClose}

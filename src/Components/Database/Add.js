@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import {
   DialogContent,
   TextField,
@@ -22,14 +22,14 @@ import {
   Paper,
   Snackbar,
   SnackbarContent
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FileInput from '../FileInput';
+} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import FileInput from "../FileInput";
 
-import { connect } from 'react-redux';
-import { addItem } from '../../actions/databaseActions';
-import { getCategoriesNames } from '../../actions/categoriesActions';
-import { getImage, resetImage, deletePic } from '../../actions/imageActions';
+import { connect } from "react-redux";
+import { addItem } from "../../actions/databaseActions";
+import { getCategoriesNames } from "../../actions/categoriesActions";
+import { getImage, resetImage, deletePic } from "../../actions/imageActions";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -44,15 +44,15 @@ const MenuProps = {
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'row'
+    display: "flex",
+    flexDirection: "row"
   },
   form: {
     margin: 20,
-    width: '50%'
+    width: "50%"
   },
   formItems: {
-    width: '40%',
+    width: "40%",
     marginBottom: 20,
     marginRight: 10
   },
@@ -61,14 +61,14 @@ const styles = theme => ({
     height: 100
   },
   chips: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    display: "flex",
+    flexWrap: "wrap"
   },
   chip: {
     margin: theme.spacing.unit / 4
   },
   snackbar: {
-    backgroundColor: '#d32f2f'
+    backgroundColor: "#d32f2f"
   }
 });
 export class Add extends Component {
@@ -117,7 +117,7 @@ export class Add extends Component {
       tags: this.state.tags
     };
     this.validator(newItem)
-      ? this.sendItem()
+      ? this.sendItem(newItem)
       : this.setState({ snackbar: true });
   };
 
@@ -266,7 +266,7 @@ export class Add extends Component {
                     src={
                       this.props.snap
                         ? this.props.snap
-                        : 'https://via.placeholder.com/500x300.png?text=Aperçu'
+                        : "https://via.placeholder.com/500x300.png?text=Aperçu"
                     }
                     className={classes.images}
                     alt="Aperçu de l'article"
@@ -276,7 +276,7 @@ export class Add extends Component {
                   </ListItemSecondaryAction>
                 </ListItem>
                 {this.props.pic.map(img => (
-                  <ListItem key={'img-' + this.props.pic.indexOf(img)}>
+                  <ListItem key={"img-" + this.props.pic.indexOf(img)}>
                     <img
                       src={img}
                       className={classes.images}
@@ -316,8 +316,8 @@ export class Add extends Component {
         </Paper>
         <Snackbar
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right'
+            vertical: "bottom",
+            horizontal: "right"
           }}
           open={snackbar}
           onClose={this.handleSnackbar}

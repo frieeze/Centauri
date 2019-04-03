@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import {
   Dialog,
   DialogTitle,
@@ -21,14 +21,14 @@ import {
   MenuItem,
   Input,
   Chip
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-import { connect } from 'react-redux';
-import { getItem, modifyItem } from '../../actions/databaseActions';
-import { getCategoriesNames } from '../../actions/categoriesActions';
-import { getImage, resetImage, deletePic } from '../../actions/imageActions';
-import FileInput from '../FileInput';
+import { connect } from "react-redux";
+import { getItem, modifyItem } from "../../actions/databaseActions";
+import { getCategoriesNames } from "../../actions/categoriesActions";
+import { getImage, resetImage, deletePic } from "../../actions/imageActions";
+import FileInput from "../FileInput";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -43,15 +43,15 @@ const MenuProps = {
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'row'
+    display: "flex",
+    flexDirection: "row"
   },
   form: {
     margin: 20,
-    width: '50%'
+    width: "50%"
   },
   formItems: {
-    width: '40%',
+    width: "40%",
     marginBottom: 20,
     marginRight: 10
   },
@@ -60,14 +60,14 @@ const styles = theme => ({
     height: 100
   },
   chips: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    display: "flex",
+    flexWrap: "wrap"
   },
   chip: {
     margin: theme.spacing.unit / 4
   },
   snackbar: {
-    backgroundColor: '#d32f2f'
+    backgroundColor: "#d32f2f"
   }
 });
 export class Modify extends Component {
@@ -272,7 +272,7 @@ export class Modify extends Component {
                   ...this.props.pic,
                   ...(this.state.pic ? this.state.pic : this.props.data.pic)
                 ].map(img => (
-                  <ListItem key={'img-' + this.props.pic.indexOf(img)}>
+                  <ListItem key={"img-" + this.props.pic.indexOf(img)}>
                     <img
                       src={img}
                       className={classes.images}

@@ -19,7 +19,6 @@ export const uploadImage = (data, name) => dispatch => {
       }
     })
     .then(res => {
-      console.log(res.data);
       res.data.logged
         ? dispatch({
             type:
@@ -28,9 +27,7 @@ export const uploadImage = (data, name) => dispatch => {
                 : name === "pic"
                 ? PIC_UPLOADED
                 : IMAGE_UPLOADED,
-            payload: `http://stock.passionloisir.fr/uploads/${
-              res.data.img.filename
-            }`
+            payload: `https://passionloisir.fr/uploads/${res.data.img.filename}`
           })
         : dispatch({ type: LOG_OUT });
     });

@@ -25,7 +25,6 @@ export const logTest = () => dispatch => {
 
 export const logIn = (user, pwd) => dispatch => {
   axios.post("api/auth/login", { username: user, password: pwd }).then(res => {
-    console.log(res.data);
     if (res.data.logged) {
       sessionStorage.setItem("auth_token", "Bearer " + res.data.token);
       dispatch({

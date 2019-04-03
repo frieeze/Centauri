@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import { Typography, IconButton, Divider } from '@material-ui/core';
-import Create from '@material-ui/icons/Create';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import { Typography, IconButton, Divider } from "@material-ui/core";
+import Create from "@material-ui/icons/Create";
 
-import { connect } from 'react-redux';
-import { getGeneral, saveDelpic } from '../../actions/generalActions';
-import Modify from './Conditions/Modify';
+import { connect } from "react-redux";
+import { getGeneral, saveDelpic } from "../../actions/generalActions";
+import Modify from "./Conditions/Modify";
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: "100%",
     minWidth: 400,
     marginBottom: 50
   },
   paper: {
     maxWidth: 500,
-    margin: 'auto',
-    overflow: 'hidden'
+    margin: "auto",
+    overflow: "hidden"
   },
   conditions: {
     margin: 15
@@ -95,7 +95,7 @@ class Conditions extends Component {
 Conditions.propTypes = {
   classes: PropTypes.object.isRequired,
   getGeneral: PropTypes.func.isRequired,
-  delPick: PropTypes.array.isRequired
+  delPick: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

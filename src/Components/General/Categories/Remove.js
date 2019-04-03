@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import {
   Dialog,
   DialogTitle,
@@ -9,20 +9,20 @@ import {
   Button,
   DialogActions,
   DialogContentText
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const styles = theme => ({
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: 'auto',
-    width: 'fit-content'
+    display: "flex",
+    flexDirection: "column",
+    margin: "auto",
+    width: "fit-content"
   },
   formItems: {
     marginBottom: 20
   },
   file: {
-    display: 'none'
+    display: "none"
   }
 });
 
@@ -37,7 +37,7 @@ export class Remove extends Component {
     const { classes, open, toggle, name } = this.props;
     return (
       <Dialog open={open} onClose={toggle} aria-labelledby="create-title">
-        <DialogTitle id="create-title">Ajouter un catégorie</DialogTitle>
+        <DialogTitle id="create-title">Supprimer une catégorie</DialogTitle>
         <DialogContent className={classes.form}>
           <DialogContentText>
             Etes vous sûr de vouloir supprimer la catégorie {name} ?
