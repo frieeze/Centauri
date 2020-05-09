@@ -1,3 +1,3 @@
 # Centauri
-Database managment + analytic application
+Database managment + analytic application  
 This repo only contains client side
