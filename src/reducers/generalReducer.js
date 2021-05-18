@@ -2,11 +2,11 @@ import {
   GET_GEN,
   SAVE_DELPIC,
   ADD_CAROUSEL,
-  DELETE_CAROUSEL
-} from '../actions/types';
+  DELETE_CAROUSEL,
+} from "../actions/types";
 const initialState = {
   pickdelinfo: {},
-  carousel: []
+  carousel: [],
 };
 
 export default function(state = initialState, action) {
@@ -15,22 +15,24 @@ export default function(state = initialState, action) {
       return {
         ...state,
         pickdelinfo: action.payload.pickdelinfo,
-        carousel: action.payload.carousel
+        carousel: action.payload.carousel,
       };
     case ADD_CAROUSEL:
       return {
         ...state,
-        carousel: action.payload.carousel
+        carousel: [action.payload.carousel, ...state.carousel],
       };
     case DELETE_CAROUSEL:
       return {
         ...state,
-        carousel: action.payload.carousel
+        carousel: state.carousel.filter(
+          (img) => img !== action.payload.carousel
+        ),
       };
     case SAVE_DELPIC:
       return {
         ...state,
-        pickdelinfo: action.payload.pickdelinfo
+        pickdelinfo: action.payload.pickdelinfo,
       };
     default:
       return state;

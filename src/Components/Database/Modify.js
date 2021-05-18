@@ -20,7 +20,7 @@ import {
   Select,
   MenuItem,
   Input,
-  Chip
+  Chip,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
@@ -36,60 +36,60 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
+      width: 250,
+    },
+  },
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
   },
   form: {
     margin: 20,
-    width: "50%"
+    width: "50%",
   },
   formItems: {
     width: "40%",
     marginBottom: 20,
-    marginRight: 10
+    marginRight: 10,
   },
   images: {
     width: 150,
-    height: 100
+    height: 100,
   },
   chips: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   chip: {
-    margin: theme.spacing.unit / 4
+    margin: theme.spacing.unit / 4,
   },
   snackbar: {
-    backgroundColor: "#d32f2f"
-  }
+    backgroundColor: "#d32f2f",
+  },
 });
 export class Modify extends Component {
   state = {
-    tags: undefined
+    tags: undefined,
   };
 
-  handlePicDelete = pic => {
+  handlePicDelete = (pic) => {
     this.setState({
       pic: (this.state.pic ? this.state.pic : this.props.data.pic).filter(
-        img => img !== pic
-      )
+        (img) => img !== pic
+      ),
     });
   };
 
-  handleSelectChange = e => {
+  handleSelectChange = (e) => {
     this.setState({ tags: e.target.value });
   };
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  handleSwitch = e => {
+  handleSwitch = (e) => {
     this.setState({ [e.target.name]: e.target.checked });
   };
 
@@ -109,15 +109,15 @@ export class Modify extends Component {
         pickup:
           this.state.pickup !== undefined
             ? this.state.pickup
-            : this.props.data.desc.pickup
+            : this.props.data.desc.pickup,
       },
       price: this.state.price ? this.state.price : this.props.data.price,
       pic: [
         ...this.props.pic,
-        ...(this.state.pic ? this.state.pic : this.props.data.pic)
+        ...(this.state.pic ? this.state.pic : this.props.data.pic),
       ],
       snap: this.props.snap ? this.props.snap : this.props.data.snap,
-      tags: this.state.tags ? this.state.tags : this.props.categories
+      tags: this.state.tags ? this.state.tags : this.props.categories,
     };
     this.props.modifyItem(newItem);
 
@@ -135,7 +135,7 @@ export class Modify extends Component {
       pickup: undefined,
       price: undefined,
       snap: undefined,
-      tags: undefined
+      tags: undefined,
     });
     this.props.toggle();
     this.props.resetImage();
@@ -221,9 +221,9 @@ export class Modify extends Component {
                   }
                   onChange={this.handleSelectChange}
                   input={<Input id="select-multiple-chip" />}
-                  renderValue={selected => (
+                  renderValue={(selected) => (
                     <div className={classes.chips}>
-                      {selected.map(value => (
+                      {selected.map((value) => (
                         <Chip
                           key={value}
                           label={value}
@@ -234,7 +234,7 @@ export class Modify extends Component {
                   )}
                   MenuProps={MenuProps}
                 >
-                  {this.props.categories.map(cat => (
+                  {this.props.categories.map((cat) => (
                     <MenuItem key={cat} value={cat}>
                       {cat}
                     </MenuItem>
@@ -270,9 +270,9 @@ export class Modify extends Component {
                 </ListItem>
                 {[
                   ...this.props.pic,
-                  ...(this.state.pic ? this.state.pic : this.props.data.pic)
-                ].map(img => (
-                  <ListItem key={"img-" + this.props.pic.indexOf(img)}>
+                  ...(this.state.pic ? this.state.pic : this.props.data.pic),
+                ].map((img, index) => (
+                  <ListItem key={`img-${index}-${this.props.data._id}`}>
                     <img
                       src={img}
                       className={classes.images}
@@ -318,14 +318,14 @@ export class Modify extends Component {
 }
 
 Modify.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.database.selected,
   categories: state.categories.names,
   snap: state.image.snap,
-  pic: state.image.pic
+  pic: state.image.pic,
 });
 
 export default connect(

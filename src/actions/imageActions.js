@@ -6,54 +6,63 @@ import {
   RESET_IMAGE,
   SNAP_UPLOADED,
   PIC_UPLOADED,
-  PIC_DELETE
+  PIC_DELETE,
 } from "./types";
 import axios from "axios";
 
-export const uploadImage = (data, name) => dispatch => {
+export const uploadImage = (data, name) => (dispatch) => {
   uploading();
-  axios
-    .post("api/oskur/upload-image", data, {
-      headers: {
-        Authorization: sessionStorage.getItem("auth_token")
-      }
-    })
-    .then(res => {
-      res.data.logged
-        ? dispatch({
-            type:
-              name === "snap"
-                ? SNAP_UPLOADED
-                : name === "pic"
-                ? PIC_UPLOADED
-                : IMAGE_UPLOADED,
-            payload: `https://passionloisir.fr/uploads/${res.data.img.filename}`
-          })
-        : dispatch({ type: LOG_OUT });
-    });
+  dispatch({
+    type:
+      name === "snap"
+        ? SNAP_UPLOADED
+        : name === "pic"
+        ? PIC_UPLOADED
+        : IMAGE_UPLOADED,
+    payload: data,
+  });
+  // axios
+  //   .post("api/oskur/upload-image", data, {
+  //     headers: {
+  //       Authorization: sessionStorage.getItem("auth_token")
+  //     }
+  //   })
+  //   .then(res => {
+  //     res.data.logged
+  //       ? dispatch({
+  //           type:
+  //             name === "snap"
+  //               ? SNAP_UPLOADED
+  //               : name === "pic"
+  //               ? PIC_UPLOADED
+  //               : IMAGE_UPLOADED,
+  //           payload: `https://passionloisir.fr/uploads/${res.data.img.filename}`
+  //         })
+  //       : dispatch({ type: LOG_OUT });
+  //   });
 };
 
 export const resetImage = () => {
   return {
-    type: RESET_IMAGE
+    type: RESET_IMAGE,
   };
 };
 
-export const deletePic = name => {
+export const deletePic = (name) => {
   return {
     type: PIC_DELETE,
-    payload: name
+    payload: name,
   };
 };
 
 export const getImage = () => {
   return {
-    type: GET_IMAGE
+    type: GET_IMAGE,
   };
 };
 
 export const uploading = () => {
   return {
-    type: UPLOADING
+    type: UPLOADING,
   };
 };
